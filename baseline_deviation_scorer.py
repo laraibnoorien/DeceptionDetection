@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
 """
-/Users/laraibnoorien/deception_detection_project/baseline_deviation_scorer.py
 Baseline Deviation Scorer
 
 Computes per-modality deviations from subject baseline:
