@@ -1,0 +1,118 @@
+# Deception Detection System - Configuration Template
+# Copy this file to config.yaml and customize for your setup
+
+# ===================================================================
+# HARDWARE CONFIGURATION
+# ===================================================================
+
+hardware:
+  camera:
+    device_id: 0              # Camera device ID (0 for built-in, 1+ for USB)
+    frame_width: 1280         # Input frame width
+    frame_height: 720         # Input frame height
+    fps: 30                   # Target frames per second
+    
+  microphone:
+    enabled: true             # Enable microphone input
+    sample_rate: 16000        # Audio sample rate (Hz)
+    chunk_ms: 20              # Audio chunk size (ms)
+    
+  wearable:
+    enabled: false            # Enable wearable device
+    device_type: "timex"      # "timex" or "gadgetbridge"
+    timex_mac: null           # MAC address of Timex device
+    gadgetbridge_dir: null    # Path to Gadgetbridge data directory
+
+# ===================================================================
+# MODALITY CONFIGURATION
+# ===================================================================
+
+modalities:
+  microexpression:            # MM (O4_MicroexpressionModality)
+    enabled: true
+    model_path: "micro_expression_models/phase1/best_78.06.pth"
+    confidence_threshold: 0.5 # Minimum confidence for detection
+    
+  text:                       # TM (O1_TextModality)
+    enabled: true
+    enable_speech: true       # Enable speech recognition
+    stt_backend: "speech_recognition"  # "speech_recognition" or "whisper"
+    baseline_update_threshold: 0.7
+    
+  physiological:              # PM (O2_PhysiologicalModality)
+    enabled: true
+    use_rppg: true            # Use remote photoplethysmography if no wearable
+    stress_threshold: 0.5
+    
+  speech:                     # SM (O3_SpeechModality)
+    enabled: true
+    vad_energy_threshold: 3e-4
+    vad_zcr_threshold: 0.15
+    min_speech_ms: 300
+
+# ===================================================================
+# FUSION CONFIGURATION
+# ===================================================================
+
+fusion:
+  mm_weight: 0.25             # Microexpression weight (0-1)
+  tm_weight: 0.25             # Text weight (0-1)
+  pm_weight: 0.25             # Physiological weight (0-1)
+  sm_weight: 0.25             # Speech weight (0-1)
+  
+  alert_thresholds:
+    clear: 0.30               # < this = CLEAR
+    moderate: 0.50            # < this = MODERATE
+    high: 0.80                # < this = HIGH
+    critical: 1.00            # >= 0.80 = CRITICAL
+
+# ===================================================================
+# DISPLAY CONFIGURATION
+# ===================================================================
+
+display:
+  enabled: true               # Show HUD display
+  frame_width: 800            # HUD display width
+  frame_height: 600           # HUD display height
+  show_modality_status: true  # Show MM/TM/PM/SM indicators
+  show_per_modality_scores: true  # Show individual scores
+  show_fps: true              # Show frame rate counter
+
+# ===================================================================
+# LOGGING CONFIGURATION
+# ===================================================================
+
+logging:
+  level: "INFO"               # DEBUG, INFO, WARNING, ERROR
+  save_frames: true           # Save frame logs
+  save_modality_outputs: true # Save per-modality data
+  save_session_log: true      # Save session metadata
+  log_every_n_frames: 30      # Log frequency
+
+# ===================================================================
+# SUBJECT/SESSION CONFIGURATION
+# ===================================================================
+
+subject:
+  speaker_id: "SUBJECT_001"   # Subject identifier (override with --speaker-id)
+  session_id: null            # Session ID (auto-generated if null)
+  baseline_frames: 150        # Frames for baseline calibration
+
+# ===================================================================
+# PERFORMANCE CONFIGURATION
+# ===================================================================
+
+performance:
+  process_every_n_frames: 2   # Process every Nth frame (1=every, 2=every other)
+  max_frame_buffer: 30        # Maximum buffered frames
+  gpu_acceleration: true      # Use GPU if available
+  
+# ===================================================================
+# PATHS CONFIGURATION
+# ===================================================================
+
+paths:
+  models_dir: "models"                      # Model files directory
+  output_dir: "runs"                        # Session output directory
+  cache_dir: ".cache"                       # Cache directory for models
+  config_file: "config.yaml"                # This config file

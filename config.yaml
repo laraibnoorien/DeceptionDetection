@@ -1,0 +1,120 @@
+# Deception Detection System Configuration
+# ============================================================================
+
+system:
+  speaker_id: "DEFAULT"
+  camera_id: 0
+  camera_resolution: [800, 600]
+  target_fps: 30
+  warmup_frames: 150
+  headless: false
+
+modalities:
+  microexpression:
+    enabled: true
+    warmup_frames: 150
+    micro_blend_threshold: 0.55
+    save_apex_crops: false
+    collect_mode: false
+    evm_alpha: 0.95
+    evm_amplification: 2.5
+    micro_flow_winsize: 7
+    macro_flow_winsize: 15
+    apex_flow_threshold_sigma: 3.0
+    apex_min_mean_flow: 0.50
+    apex_refractory_frames: 20
+    
+  text:
+    enabled: true
+    nli_model: "MoritzLaurer/deberta-v3-small-zeroshot-v2.0"
+    max_history: 20
+    contradiction_threshold: 0.65
+    weights:
+      contradiction: 0.45
+      anomaly: 0.35
+      temporal: 0.20
+    feature_extractor_cache_dir: ~/.cache/deception_detection
+    
+  physiological:
+    enabled: true
+    use_wearable: true
+    simulate_wearable: false
+    calibration_duration_seconds: 10
+    rppg_bandpass_low: 0.7
+    rppg_bandpass_high: 4.0
+    ble_timeout_seconds: 10
+    signal_buffer_size: 2000
+    anomaly_retrain_interval: 100
+    
+  speech:
+    enabled: true
+    model_dir: "sm_models"
+    streaming: true
+    audio_chunk_size: 8192
+    audio_sample_rate: 16000
+    stress_threshold: 0.7
+    deception_threshold: 0.7
+
+fusion:
+  alert_thresholds:
+    clear: 0.30
+    moderate: 0.50
+    high: 0.80
+    critical: 0.90
+  decay_rate: 0.98
+  min_confidence: 0.3
+
+hud:
+  enabled: true
+  overlay_alpha: 0.85
+  font_scale: 0.5
+  font_thickness: 1
+  colour_scheme: "dark"  # dark or light
+  
+  sections:
+    show_emotion: true
+    show_au_bars: true
+    show_physio: true
+    show_text_alerts: true
+    show_speech_indicators: true
+    show_fusion_result: true
+    show_alert_level: true
+    show_explanation: true
+    show_radar_chart: true
+    show_fps: true
+
+logging:
+  level: "INFO"
+  save_runs: true
+  save_directory: "runs/"
+  save_apex_crops: false
+  apex_crops_directory: "apex_crops/"
+
+display:
+  window_width: 1280
+  window_height: 960
+  target_fps: 30
+
+controls:
+  pause_key: "space"
+  ground_truth_key: "g"
+  save_frame_key: "s"
+  reset_baselines_key: "r"
+  quit_key: "q"
+
+# Advanced options
+advanced:
+  gpu_enabled: true
+  cuda_device: 0
+  profile_performance: false
+  debug_mode: false
+  save_intermediate_frames: false
+
+# Wearable integration (WebSocket / BLE bridge)
+wearable:
+  enabled: true
+  backend: ws
+  ws_host: 0.0.0.0
+  ws_port: 8765
+  buffer_size: 300
+

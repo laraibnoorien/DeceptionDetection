@@ -1,0 +1,6 @@
+{
+  "name": "DON'T LIE",
+  "description": "Realtime Multimodal Deception Detection Platform for forensic and behavioral analysis.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

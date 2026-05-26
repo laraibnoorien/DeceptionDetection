@@ -1,0 +1,54 @@
+# Virtual environments
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs and temp files
+*.log
+logs/
+results/
+runs/
+.pytest_cache/
+.cache/
+
+# Environment files
+.env
+.env.local
+
+# Node modules (frontend)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Model files and data
+models/
+subject_profiles/
+*.pkl
+*.pth
+*.pt
+*.joblib
+
+# System files
+session.py
+tempscrypt.js
+*.bak
+
+# Large output files
+mock_realtime_data.json
+system_diagnostics.json
+FINAL_STATUS.json
+IMPLEMENTATION_COMPLETE.json
+
+# Archives
+*.zip
+frontend.zip

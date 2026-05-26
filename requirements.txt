@@ -1,0 +1,40 @@
+# Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Data processing
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0
+opencv-python>=4.8.0
+Pillow>=10.0.0
+scipy>=1.10.0
+scikit-image>=0.21.0
+
+# Face analysis
+mediapipe>=0.10.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+
+# Training utilities
+tqdm>=4.65.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Google Drive access (Colab)
+kagglehub>=0.1.0
+gdown>=5.0.0
+
+# ViT backbone (optional)
+timm>=0.9.0
+
+# NEW: Real-time I/O and hardware integration
+pyaudio>=0.2.13  # Microphone capture
+bleak>=0.20.0    # BLE wearable connectivity
+sounddevice>=0.4.6  # Alternative audio backend (backup)
+librosa>=0.10.0  # Audio feature extraction (already used by speech module)
+
+# MPS-specific (already in PyTorch 2.x)
+# No extra packages needed for Apple Silicon
